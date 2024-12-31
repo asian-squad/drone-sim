@@ -18,7 +18,7 @@ class Quadcopter:
         self.body = p.loadURDF(quadcopter_urdf(
             w, l, h, mass, x_com, y_com, z_com, d_prop, h_prop))
         
-        p.changeDynamics(self.body, -1, linearDamping=0.0, angularDamping=0.0)
+        p.changeDynamics(self.body, -1, linearDamping=0, angularDamping=0)
 
         half_w = w / 2
         half_l = l / 2

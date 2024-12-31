@@ -1,12 +1,14 @@
 from params import MAX_THRUST
 from quadcopter import Quadcopter
 import numpy as np
+import pybullet as p
 
 
 class RealisticQuadcopter(Quadcopter):
     def __init__(self, w, l, h, mass, x_com=0.0, y_com=0.0, z_com=0.0, d_prop=0.12, h_prop=0.01, noise_std=0.001):
         super().__init__(w, l, h, mass, x_com, y_com, z_com, d_prop, h_prop)
         self.noise_std = noise_std
+        p.changeDynamics(self.body, -1, linearDamping=0.1, angularDamping=0.1)
 
     def apply_thrust(self, front_left, front_right, back_left, back_right):
         front_left += np.random.normal(0, self.noise_std)
