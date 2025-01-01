@@ -34,7 +34,12 @@ while True:
     yaw = orn[2]
     
     drone.apply_thrusts(*controller.get_thrusts(roll, pitch, yaw, TIME_STEP))
-    controller.keyboard(TIME_STEP)
+
+    keys = p.getKeyboardEvents()
+    controller.keyboard(keys, TIME_STEP)
+
+    if p.B3G_RETURN in keys:
+        drone.set_position(0, 0, 1)
 
     follow(drone.body, yaw - math.pi / 2)
     p.stepSimulation()

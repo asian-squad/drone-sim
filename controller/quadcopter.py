@@ -18,9 +18,7 @@ class QuadcopterController(OrientationController):
         return t_fl, t_fr, t_bl, t_br
     
 
-    def keyboard(self, dt: float):
-        keys = p.getKeyboardEvents()
-
+    def keyboard(self, keys, dt: float):
         if p.B3G_SPACE in keys:
             self.thrust += 0.1 * dt
         if p.B3G_SHIFT in keys:
