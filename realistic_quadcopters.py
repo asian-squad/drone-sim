@@ -10,7 +10,7 @@ class RealisticQuadcopter(Quadcopter):
         self.noise_std = noise_std
         p.changeDynamics(self.body, -1, linearDamping=0.1, angularDamping=0.1)
 
-    def apply_thrust(self, front_left, front_right, back_left, back_right):
+    def apply_thrusts(self, front_left, front_right, back_left, back_right):
         front_left += np.random.normal(0, self.noise_std)
         front_right += np.random.normal(0, self.noise_std)
         back_left += np.random.normal(0, self.noise_std)
@@ -21,7 +21,7 @@ class RealisticQuadcopter(Quadcopter):
         back_left = np.clip(back_left, 0, MAX_THRUST)
         back_right = np.clip(back_right, 0, MAX_THRUST)
 
-        super().apply_thrust(front_left, front_right, back_left, back_right)
+        super().apply_thrusts(front_left, front_right, back_left, back_right)
 
     def get_acc_and_gyro(self, dt):
         acc, gyro = super().get_acc_and_gyro(dt)

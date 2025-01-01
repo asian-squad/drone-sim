@@ -17,7 +17,7 @@ class Quadcopter:
         self.mass = mass
         self.body = p.loadURDF(quadcopter_urdf(
             w, l, h, mass, x_com, y_com, z_com, d_prop, h_prop))
-        
+
         p.changeDynamics(self.body, -1, linearDamping=0, angularDamping=0)
 
         half_w = w / 2
@@ -32,7 +32,10 @@ class Quadcopter:
         self.thurst_directions = [1, -1, -1, 1]
         self.prev_velocity = np.zeros(3)
 
-    def apply_thrust(self, front_left, front_right, back_left, back_right):
+    def set_position(self, x: float, y: float, z: float):
+        p.resetBasePositionAndOrientation(self.body, [x, y, z], [0, 0, 0, 1])
+
+    def apply_thrusts(self, front_left, front_right, back_left, back_right):
         thrusts = [front_left, front_right, back_left, back_right]
 
         for force, pos, direction in zip(thrusts, self.thrust_positions, self.thurst_directions):
@@ -44,10 +47,11 @@ class Quadcopter:
             p.applyExternalTorque(
                 self.body, -1, torqueObj=[0, 0, torque], flags=p.LINK_FRAME)
 
-    def get_acc_and_gyro(self, dt):
+    def get_acc_gyro_orn(self, dt):
 
         link_state = p.getLinkState(self.body, 0, computeLinkVelocity=1)
 
+        orientation = p.getEulerFromQuaternion(link_state[1])
         rotation_matrix = p.getMatrixFromQuaternion(link_state[1])
         rotation_matrix = np.array(rotation_matrix).reshape(3, 3)
         linear_velocity = np.array(link_state[6])
@@ -60,4 +64,4 @@ class Quadcopter:
         self.prev_velocity = local_linear_velocity
         acceleration[2] -= GRAVITY
 
-        return acceleration, local_angular_velocity
+        return acceleration, local_angular_velocity, orientation
