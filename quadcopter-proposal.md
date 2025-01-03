@@ -1,6 +1,6 @@
 # Quadcopter Proposal
 
-This document outlines the design of a quadcopter. The goal is to build a quadcopter from scratch using open-source software and hardware. The quadcopter will be designed to be modular and easy to upgrade.
+This document outlines the design of a quadcopter. The goal is to build a quadcopter from scratch as much as our expertise allows. The quadcopter will be designed to be modular and easy to upgrade.
 
 ## Goal
 
