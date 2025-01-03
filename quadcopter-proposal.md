@@ -220,3 +220,5 @@ Respect the FCC regulations. The antenna will likely be a 2.4 GHz antenna. The a
 
 The components with scew holes can be mounted straight on the 3D printed parts. The components without screw holes such as the microcontroller can be mounted using its pins fitted into a fixated jumper wire. The camera will need to be mounted either with an 3D printed enclosure or tape.
 
+> The jumper wire can be fixed with friction or glue.
+
