@@ -2,7 +2,7 @@
 
 ## Setup
 
-- [Miniconda](https://docs.anaconda.com/miniconda/) is strongly recommanded!
+- [Miniconda](https://docs.anaconda.com/miniconda/) is strongly recommended!
 - `pip install -r requirements.txt`
 
 ## Run
