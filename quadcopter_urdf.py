@@ -43,33 +43,33 @@ def fixed_joint(parent: str, child: str):
 
 
 
-def quadcopter_urdf(w, l, h, mass, x_com = 0.0, y_com = 0.0, z_com = 0.0, d_prop = 0.12, h_prop = 0.01):
+def quadcopter_urdf(width, length, height, mass, x_center_of_mass = 0.0, y_center_of_mass = 0.0, z_center_of_mass = 0.0, propeller_diameter = 0.12, propeller_height = 0.01):
 
-    half_w = w / 2
-    half_l = l / 2
+    half_width = width / 2
+    half_length = length / 2
 
-    propeller = cylinder(d_prop, h_prop)
+    propeller = cylinder(propeller_diameter, propeller_height)
 
     content = f'''
     <robot name="drone">
         <link name="base">
-            {visual_collision(box(l, w, h), 0, 0, 0, "gray")}
-            {inertial(mass, x_com, y_com, z_com)}
+            {visual_collision(box(length, width, height), 0, 0, 0, "gray")}
+            {inertial(mass, x_center_of_mass, y_center_of_mass, z_center_of_mass)}
         </link>
         <link name="fl">
-            {visual_collision(propeller, half_l, half_w, 0, "red")}
+            {visual_collision(propeller, half_length, half_width, 0, "red")}
             {inertial(0, 0, 0, 0)}
         </link>
         <link name="fr">
-            {visual_collision(propeller, half_l, -half_w, 0, "blue")}
+            {visual_collision(propeller, half_length, -half_width, 0, "blue")}
             {inertial(0, 0, 0, 0)}
         </link>
         <link name="bl">
-            {visual_collision(propeller, -half_l, half_w, 0, "gray")}
+            {visual_collision(propeller, -half_length, half_width, 0, "gray")}
             {inertial(0, 0, 0, 0)}
         </link>
         <link name="br">
-            {visual_collision(propeller, -half_l, -half_w, 0, "gray")}
+            {visual_collision(propeller, -half_length, -half_width, 0, "gray")}
             {inertial(0, 0, 0, 0)}
         </link>
         {fixed_joint("base", "fl")}

@@ -1,19 +1,14 @@
 from .pid import PIDController
 
-KP = 0.2
-KI = 0.2
-KD = 0.01
-
-
 class OrientationController:
-    target_yaw = 0
-    target_pitch = 0
     target_roll = 0
+    target_pitch = 0
+    target_yaw = 0 
     
     def __init__(self, kp: float, ki: float, kd: float):
-        self.yaw_controller = PIDController(kp, ki, kd)
         self.roll_controller = PIDController(kp, ki, kd)
         self.pitch_controller = PIDController(kp, ki, kd)
+        self.yaw_controller = PIDController(kp, ki, kd)
 
     def update(self, roll: float, pitch: float, yaw: float, dt: float):
         error_roll = self.target_roll - roll

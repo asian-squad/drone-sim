@@ -16,22 +16,22 @@ p.loadURDF("plane.urdf")
 
 drone = RealisticQuadcopter(0.25, 0.3, 0.1, 1)
 drone.set_position(0, 0, 1)
-controller = QuadcopterController(-GRAVITY / 4, 0.2, 0.2, 0.01)
+controller = QuadcopterController(-GRAVITY / 4, 0.2, 0.2, 0.2)
 
-def to_deg(rad: float) -> int:
+def to_degrees(rad: float) -> int:
     return int(rad * 180 / math.pi)
 
 def follow(body: int, yaw: float):
     basePos, _ = p.getBasePositionAndOrientation(body)
     p.resetDebugVisualizerCamera(
-        cameraDistance=3, cameraYaw=to_deg(yaw), cameraPitch=-30, cameraTargetPosition=basePos)
+        cameraDistance=3, cameraYaw=to_degrees(yaw), cameraPitch=-30, cameraTargetPosition=basePos)
 
 while True:
-    acc, gyro, orn = drone.get_acc_gyro_orn(TIME_STEP)
+    acceleration, gyro, orientation = drone.get_acceleration_gyro_orientation(TIME_STEP)
 
-    roll = orn[0]
-    pitch = orn[1]
-    yaw = orn[2]
+    roll = orientation[0]
+    pitch = orientation[1]
+    yaw = orientation[2]
     
     drone.apply_thrusts(*controller.get_thrusts(roll, pitch, yaw, TIME_STEP))
 
