@@ -16,7 +16,7 @@ p.loadURDF("plane.urdf")
 
 drone = RealisticQuadcopter(0.25, 0.3, 0.1, 1)
 drone.set_position(0, 0, 1)
-controller = QuadcopterController(-GRAVITY / 4, 0.2, 0.2, 0.2)
+controller = QuadcopterController(-GRAVITY / 4, 0.2, 0.2, 0.1)
 
 def to_degrees(rad: float) -> int:
     return int(rad * 180 / math.pi)

@@ -1,3 +1,4 @@
+import math
 import pybullet as p
 from .orientation import OrientationController
 
@@ -26,20 +27,31 @@ class QuadcopterController(OrientationController):
 
         if p.B3G_LEFT_ARROW in keys:
             self.target_yaw += 0.5 * dt
+            if self.target_yaw >= math.pi:
+                self.target_yaw = -math.pi
         if p.B3G_RIGHT_ARROW in keys:
             self.target_yaw -= 0.5 * dt
-
+            if self.target_yaw <= -math.pi:
+                self.target_yaw = math.pi
         if p.B3G_UP_ARROW in keys:
             self.target_pitch += 0.2 * dt
+            # if self.target_pitch >= math.pi:
+                # self.target_pitch = -math.pi
         elif p.B3G_DOWN_ARROW in keys:
             self.target_pitch -= 0.2 * dt
+            # if self.target_pitch <= -math.pi:
+                # self.target_pitch = math.pi
         else:
             self.target_pitch = 0
 
         if p.B3G_CONTROL in keys:
             self.target_roll -= 0.2 * dt
+            # if self.target_roll <= -math.pi:
+                # self.target_roll = math.pi
         elif p.B3G_ALT in keys:
             self.target_roll += 0.2 * dt
+            # if self.target_roll >= math.pi:
+                # self.target_roll = -math.pi
         else:
             self.target_roll = 0
 
