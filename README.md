@@ -18,5 +18,5 @@ The controls are defined in `controller/quadcopter.py` and are as follows:
 - Ctrl and Alt to roll left and right
 - Space to increase throttle
 - Shift to decrease throttle
-- Enter (Return) to return to the origin
+- Enter (Return) to restart the simulator
 - Escape to quit
