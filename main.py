@@ -40,7 +40,7 @@ while True:
 
     if p.B3G_RETURN in keys:
         drone.set_position(0, 0, 1)
-
+        
     follow(drone.body, yaw - math.pi / 2)
     p.stepSimulation()
     time.sleep(TIME_STEP)

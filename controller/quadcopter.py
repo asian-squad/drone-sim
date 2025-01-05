@@ -6,6 +6,7 @@ class QuadcopterController(OrientationController):
 
     def __init__(self, thrust: float, kp: float, ki: float, kd: float):
         self.thrust = thrust
+        self.starting_thrust = thrust
         super().__init__(kp, ki, kd)
 
     def get_thrusts(self, roll: float, pitch: float, yaw: float, dt: float) -> tuple:
@@ -54,6 +55,10 @@ class QuadcopterController(OrientationController):
                 # self.target_roll = -math.pi
         else:
             self.target_roll = 0
+        
+        if p.B3G_RETURN in keys:
+            self.target_roll, self.target_pitch, self.target_yaw = 0, 0, 0
+            self.thrust = self.starting_thrust
 
 
         
