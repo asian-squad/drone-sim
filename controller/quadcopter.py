@@ -9,13 +9,13 @@ class QuadcopterController(OrientationController):
         self.starting_thrust = thrust
         super().__init__(kp, ki, kd)
 
-    def get_thrusts(self, roll: float, pitch: float, yaw: float, dt: float) -> tuple:
-        control_roll, control_pitch, control_yaw = self.update(roll, pitch, yaw, dt)
+    def get_thrusts(self, roll: float, pitch: float, yaw_velocity: float, dt: float) -> tuple:
+        control_roll, control_pitch, control_yaw_velocity = self.update(roll, pitch, yaw_velocity, dt)
 
-        t_fl = self.thrust + control_yaw + control_roll - control_pitch
-        t_fr = self.thrust - control_yaw - control_roll - control_pitch
-        t_bl = self.thrust - control_yaw + control_roll + control_pitch
-        t_br = self.thrust + control_yaw - control_roll + control_pitch
+        t_fl = self.thrust + control_yaw_velocity + control_roll - control_pitch
+        t_fr = self.thrust - control_yaw_velocity - control_roll - control_pitch
+        t_bl = self.thrust - control_yaw_velocity + control_roll + control_pitch
+        t_br = self.thrust + control_yaw_velocity - control_roll + control_pitch
 
         return t_fl, t_fr, t_bl, t_br
     
@@ -27,13 +27,12 @@ class QuadcopterController(OrientationController):
             self.thrust -= 0.1 * dt
 
         if p.B3G_LEFT_ARROW in keys:
-            self.target_yaw += 0.5 * dt
-            if self.target_yaw >= math.pi:
-                self.target_yaw = -math.pi
-        if p.B3G_RIGHT_ARROW in keys:
-            self.target_yaw -= 0.5 * dt
-            if self.target_yaw <= -math.pi:
-                self.target_yaw = math.pi
+            self.target_yaw_velocity = 50 * dt
+        elif p.B3G_RIGHT_ARROW in keys:
+            self.target_yaw_velocity = -50 * dt
+        else:
+            self.target_yaw_velocity = 0
+        
         if p.B3G_UP_ARROW in keys:
             self.target_pitch += 0.2 * dt
             # if self.target_pitch >= math.pi:

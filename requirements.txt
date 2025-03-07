@@ -1,2 +1,2 @@
-pybullet
+pybullet==3.2.7
 numpy
